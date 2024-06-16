@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import ttk
+
 import config
 
 
@@ -13,7 +15,7 @@ class MainWindow(Tk):
     def __init__(self):
         super().__init__()
         self.title("Ultimate Media Player")
-        self.iconbitmap(default=config.icon)
+        self.iconbitmap(default=config.ICON_APP)
         self.geometry(self.WIDTH + 'x' + self.HEIGHT)
         self.resizable(False, False)
 
@@ -24,6 +26,7 @@ class MainWindow(Tk):
         self.init_frames()
         self.color_frames()
         self.init_login_button()
+        self.init_menu_buttons()
 
     def init_frames(self):
         # 14 - still magic number
@@ -55,12 +58,18 @@ class MainWindow(Tk):
     def color_frames(self):
         for key, value in self.main_frame.children.items():
             if type(value) is Frame:
-                value.configure(bg="#26272a")
+                value.configure(bg=config.FRAME_COLOR)
 
     def init_login_button(self):
-        frame_for_button = Frame(self.upper_frame, height=self.upper_frame.winfo_height(),
+        frame_for_button = Frame(self.upper_frame, height=60,
                                  width=self.WIDTH, relief=SOLID, borderwidth=1)
         frame_for_button.pack(side="right", fill="y")
 
-        button = Button(master=frame_for_button, text="Войти")
+        img = PhotoImage(file=config.ICON_LOGIN)
+
+        button = Button(master=frame_for_button, text="Войти", compound="left")
         button.pack(side="right", padx=(int(self.WIDTH) / 20))
+
+    def init_menu_buttons(self):
+        for item in list(["Открыть файл", "Плейлисты", "Настройки"]):
+            Button(master=self.lower_frame, text=item).pack(side="left", padx=150)
