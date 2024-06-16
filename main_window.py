@@ -1,8 +1,7 @@
 from tkinter import *
-from tkinter import ttk
 
 import config
-from main_page import MainPage
+from pages.main_page import MainPage
 
 
 class MainWindow(Tk):
